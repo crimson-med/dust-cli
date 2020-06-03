@@ -15,7 +15,8 @@ A simple note, cheatsheet taking cli with easy search
 # Usage
 <!-- usage -->
 ```sh-session
-$ npm install -g dust-cli
+$ yarn global add dust-cli
+$ dust init
 $ dust COMMAND
 running command...
 $ dust (-v|--version|version)
@@ -28,32 +29,63 @@ USAGE
 <!-- usagestop -->
 # Commands
 <!-- commands -->
-* [`dust hello [FILE]`](#dust-hello-file)
+* [`dust init`](#dust-init)
+* [`dust search [TITLE]`](#dust-search-title)
+* [`dust add [TYPE] [TITLE] [DESCRIPTION]`](#dust-add-type-title-description)
 * [`dust help [COMMAND]`](#dust-help-command)
 
-## `dust hello [FILE]`
+## `dust init`
 
-describe the command here
+This only needs to be ran after installation or upgrade. It will initialize all databases and local storage.
+
+You can directly pass the auhor to not get promped by the interactive CLI.
 
 ```
 USAGE
-  $ dust hello [FILE]
-
-OPTIONS
-  -f, --force
-  -h, --help       show CLI help
-  -n, --name=name  name to print
+  $ dust init
+  $ dust init [USERNAME]
 
 EXAMPLE
-  $ dust hello
-  hello world from ./src/hello.ts!
+  $ dust init crimson-med
 ```
 
-_See code: [src/commands/hello.ts](https://github.com/crimson-med/dust-cli/blob/v0.0.0/src/commands/hello.ts)_
+## `dust search [TITLE]`
+
+
+
+```
+USAGE
+  $ dust search [SEARCH]
+
+OPTIONS
+  -c, --cheatsheets  search in cheatsheets only
+  -g, --guides       search in guides only
+  -n, --notes        search in notes only
+
+EXAMPLE
+  $ dust search "aws security"
+  $ dust search mystring -n
+```
+
+## `dust add [TYPE] [TITLE] [DESCRIPTION]`
+
+Add new dust, you can select the type and title and the command / description.
+
+```
+USAGE
+  $ dust add [TYPE] [TITLE] [DESCRIPTION]
+
+OPTIONS
+  -t, --type=cheatsheet|note|guide
+
+EXAMPLE
+  $ dust add "aws security policy" "another test" --t=note 
+  $ dust add cheatsheet la "ls -a"
+```
 
 ## `dust help [COMMAND]`
 
-display help for dust
+View the help or the help for a specific command
 
 ```
 USAGE
@@ -66,5 +98,14 @@ OPTIONS
   --all  see all commands in CLI
 ```
 
-_See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v3.0.1/src/commands/help.ts)_
 <!-- commandsstop -->
+
+# Dev Usage
+
+A few commands to dev
+
+```
+$ ./bin/run init
+$ ./bin/run add cheatsheet la "ls -a"
+$ ./bin/run search la -c
+```
