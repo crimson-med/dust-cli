@@ -1,0 +1,59 @@
+{
+  "name": "dust-cli",
+  "description": "A simple note, cheatsheet taking cli with easy search",
+  "version": "0.0.0",
+  "author": "Mederic Burlet",
+  "bin": {
+    "dust": "./bin/run"
+  },
+  "bugs": "https://github.com/crimson-med/dust-cli/issues",
+  "dependencies": {
+    "@oclif/command": "^1",
+    "@oclif/config": "^1",
+    "@oclif/plugin-help": "^3",
+    "@types/figlet": "^1.2.0",
+    "@types/inquirer": "^6.5.0",
+    "chalk": "^4.0.0",
+    "figlet": "^1.4.0",
+    "inquirer": "^7.1.0",
+    "nosql": "^6.1.0",
+    "tslib": "^1"
+  },
+  "devDependencies": {
+    "@oclif/dev-cli": "^1",
+    "@types/node": "^10",
+    "globby": "^10",
+    "ts-node": "^8",
+    "typescript": "^3.3"
+  },
+  "engines": {
+    "node": ">=8.0.0"
+  },
+  "files": [
+    "/bin",
+    "/lib",
+    "/npm-shrinkwrap.json",
+    "/oclif.manifest.json"
+  ],
+  "homepage": "https://github.com/crimson-med/dust-cli",
+  "keywords": [
+    "oclif"
+  ],
+  "license": "GPL-3.0",
+  "main": "lib/index.js",
+  "oclif": {
+    "commands": "./lib/commands",
+    "bin": "dust",
+    "plugins": [
+      "@oclif/plugin-help"
+    ]
+  },
+  "repository": "crimson-med/dust-cli",
+  "scripts": {
+    "postpack": "rm -f oclif.manifest.json",
+    "prepack": "rm -rf lib && tsc -b && oclif-dev manifest && oclif-dev readme",
+    "test": "echo NO TESTS",
+    "version": "oclif-dev readme && git add README.md"
+  },
+  "types": "lib/index.d.ts"
+}
