@@ -51,6 +51,27 @@ export class FileHandler {
         }
     }
 
+    read = fs.readFileSync
+
+    save = (path: string, content: any) => {
+        let formatedContent = ""
+        switch (typeof content) {
+            case "object":
+                formatedContent = JSON.stringify(content)
+                break;
+        
+            default:
+                formatedContent = content
+                break;
+        }
+        try {
+            fs.writeFileSync(path, formatedContent);
+            return true
+        } catch (error) {
+            return false
+        }
+    }
+
     exists = (path: string) => {
         return fs.existsSync(path)
     } 
