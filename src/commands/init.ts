@@ -8,6 +8,7 @@ import * as os from 'os'
 import { LogType } from '../helpers/logger'
 import { CheatsheetDatabase } from '../classes/Cheatsheet'
 import { NoteDatabase } from '../classes/Note'
+import { Config } from '../classes/Config'
 const { version } = require('./../../package.json');
 const fs = new FileHandler()
 
@@ -46,9 +47,14 @@ export default class Init extends Command {
         if (fs.isTempDirWritable()) {
             log(`Config directory: ${configDirectoryPath} is ${chalk.green("writable")}`, LogType.Success);
             if (this.initDatabases()) {
-                log(`${chalk.cyan(`Dust`)} is ready for action!`, LogType.Success)
+                const config = new Config({author, version, encryptionKey: ""})
+                if (config.save()) {
+                    log(`${chalk.cyan(`Dust`)} is ready for action!`, LogType.Success)
+                } else {
+                    log(`Could not save ${chalk.red(`config`)}. Please look into opening an issue. `, LogType.Error)
+                }
             } else {
-                log(`Could not initialize ${chalk.cyan(`Dust`)}. Please look into opening an issue: `, LogType.Error)
+                log(`Could not initialize ${chalk.cyan(`Dust`)}. Please look into opening an issue.`, LogType.Error)
             }
         } else {
             log(`Config directory: ${configDirectoryPath} is ${chalk.red("not writable")}`, LogType.Error);

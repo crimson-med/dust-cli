@@ -24,8 +24,12 @@ export class Config {
     }
 
     save() {
-        fs.save(ConfigFile, this.getData())
-        log(`Config for ${chalk.cyan(this.author)} was saved to the database`, LogType.Success)
+        if (fs.save(ConfigFile, this.getData())) {
+            log(`Config for ${chalk.cyan(this.author)} was saved to the database`, LogType.Success)
+            return true
+        } else {
+            return false
+        }
     }
 }
 
@@ -36,4 +40,4 @@ export const loadConfig = () => {
     } else {
         return null
     }
-}
+}   
