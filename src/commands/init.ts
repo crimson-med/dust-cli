@@ -46,6 +46,13 @@ export default class Init extends Command {
         log(`Config directory: ${configDirectoryPath} was created ${chalk.green("successfully")}`, LogType.Success);
         if (fs.isTempDirWritable()) {
             log(`Config directory: ${configDirectoryPath} is ${chalk.green("writable")}`, LogType.Success);
+            const pathGuide = fs.create_path(["guides"], true);
+            if (fs.createDir(pathGuide)) {
+                log(`Guide directory: ${pathGuide} was ${chalk.green("created")}`, LogType.Success);
+                
+            } else {
+                log(`Guide directory: ${configDirectoryPath} was ${chalk.red("not created")}`, LogType.Error);
+            }
             if (this.initDatabases()) {
                 const config = new Config({author, version, encryptionKey: ""})
                 if (config.save()) {

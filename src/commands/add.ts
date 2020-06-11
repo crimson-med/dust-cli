@@ -86,7 +86,6 @@ export default class Add extends Command {
         default:
             break;
     }
-    console.log(`You have chossen to create a ${type}`)
 
   }
 }

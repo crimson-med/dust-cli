@@ -5,40 +5,46 @@ import { spawnSync } from 'child_process';
 import * as nosql from 'nosql'
 import * as chalk from 'chalk'
 import inquirer = require('inquirer');
+import { generateFilename } from '../helpers/generators';
 const fs = new FileHandler();
-export const GuideDatabase = fs.create_path(['databases/guides.nosql'], true)
+export const GuideDatabase = fs.create_path(['databases/guide.nosql'], true)
 const dbGuide = nosql.load(GuideDatabase);
 
 export class Guide extends Dust {
     content: string
+    filename: string
     db: any
     constructor(title: string, content: string, isEncrypted: boolean = false,  platform: Platform = Platform.Other, description: string = "", tags: string[] = [], id: string = '') {
         super(title,isEncrypted,  platform, description, tags);
         this.content  = content
         this.db = nosql.load(GuideDatabase);
+        this.filename = fs.create_path(['guides', generateFilename(this.title, ".md")], true)
         if (id && id !== '') {
             this.id = id
         }
     }
 
     save() {
-        this.db.insert({
-            id: this.id,
-            title: this.title,
-            content: this.content,
-            isEncrypted: this.isEncrypted,
-            platform: this.platform,
-            description: this.description,
-            tags: this.tags,
-        })
-        const fileName = fs.create_path(["guides",this.title.replace(/[^a-z0-9]/gi, '_').toLowerCase()+".md"], true)
-        console.log(fileName)
-        if (fs.save(fileName, this.content)) {
-        log(`Guide ${this.id} - ${this.title} was saved at the following location: ${fileName}`, LogType.Success)
-            
+        // extrapolate tags for easier search
+        let result = false;
+        if (fs.save(this.filename, this.content)) {
+            log(`Guide ${chalk.cyan(this.id)} - ${chalk.cyan(this.title)} was saved at the following location: ${chalk.cyan(this.filename)}`, LogType.Success)
+            this.db.insert({
+                id: this.id,
+                title: this.title,
+                content: this.content,
+                filename: this.filename,
+                isEncrypted: this.isEncrypted,
+                platform: this.platform,
+                description: this.description,
+                tags: this.tags,
+            })
+            result = true
+            log(`Guide ${chalk.cyan(this.id)} - ${chalk.cyan(this.title)} was saved to the database`, LogType.Update)
+        } else {
+            log(`Guide ${chalk.red(this.id)} - ${chalk.red(this.title)} could not be saved at the following location: ${chalk.red(this.filename)}`, LogType.Error)
         }
-        
-        log(`Guide ${this.id} - ${this.title} was saved to the database`, LogType.Update)
+        return result
     }
 
     async getActions() {
@@ -54,7 +60,7 @@ export class Guide extends Dust {
             name: 'action',
             message: 'What do you want to do?',
             type: 'list',
-            choices: [{name: 'execute'}, {name: 'modify'}, {name: 'delete'}],
+            choices: [ {name: 'edit'}, {name: 'rename'}, {name: 'open'}, {name: 'delete'}],
         }])
         switch (responses.action) {
             case "execute":
@@ -85,10 +91,6 @@ export const searchGuide = (title: null|string = null, id: null|string = null): 
           });
        });
     });
-}
-
-export const searchToInquirer = (list: any[]) => {
-    return list.map(e => {return {name: e.id+' - '+e.title}})
 }
 
 export const loadGuide = async  (id: string): Promise<Guide|undefined> => {

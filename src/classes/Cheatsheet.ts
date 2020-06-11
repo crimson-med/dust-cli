@@ -98,10 +98,6 @@ export const searchCheatsheet = (title: null|string = null, id: null|string = nu
     });
 }
 
-export const searchToInquirer = (list: any[]) => {
-    return list.map(e => {return {name: e.id+' - '+e.title}})
-}
-
 export const loadCheatsheet = async  (id: string): Promise<Cheatsheet|undefined> => {
     const db = nosql.load(CheatsheetDatabase);
     const cht = await searchCheatsheet(null, id)
