@@ -12,17 +12,15 @@ A simple note, cheatsheet taking cli with easy search
 
 * [Usage](#usage)
 * [Commands](#commands)
-* [Guides](doc/)
-  
-  
-  
-  <!-- tocstop -->
-  
-  # Usage
-  
-  <!-- usage -->
-  
-  ```sh-session
+* [Guides](https://github.com/crimson-med/dust-cli/blob/master/doc/guide.md)
+
+<!-- tocstop -->
+
+# Usage
+
+<!-- usage -->
+
+```sh-session
   $ yarn global add dust-cli
   $ dust init
   $ dust COMMAND
@@ -33,13 +31,14 @@ A simple note, cheatsheet taking cli with easy search
   USAGE
   $ dust COMMAND
   ...
-  ```
-  
-  <!-- usagestop -->
-  
-  # Commands
-  
-  <!-- commands -->
+```
+
+<!-- usagestop -->
+
+# Commands
+
+<!-- commands -->
+
 * [`dust init`](#dust-init)
 * [`dust search [TITLE]`](#dust-search-title)
 * [`dust add [TYPE] [TITLE] [DESCRIPTION]`](#dust-add-type-title-description)
