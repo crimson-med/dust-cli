@@ -34,7 +34,7 @@ export class Config {
 }
 
 export const loadConfig = () => {
-    const config = JSON.parse(fs.read(ConfigFile, {encoding:'utf8', flag:'r'}));
+    const config = JSON.parse(fs.read(ConfigFile));
     if (config) {
         return new Config(config as configObject);
     } else {

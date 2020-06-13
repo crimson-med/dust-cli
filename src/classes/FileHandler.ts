@@ -51,7 +51,13 @@ export class FileHandler {
         }
     }
 
-    read = fs.readFileSync
+    delete = (path: string) => {
+        if (this.exists(path)) {
+            fs.unlinkSync(path)
+        }
+    } 
+
+    read = (content: string) => fs.readFileSync(content,{encoding:'utf8', flag:'r'})
 
     save = (path: string, content: any) => {
         let formatedContent = ""

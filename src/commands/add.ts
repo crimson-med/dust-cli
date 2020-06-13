@@ -1,7 +1,7 @@
 import {Command, flags} from '@oclif/command'
 import * as inquirer from 'inquirer'
 import { Cheatsheet } from '../classes/Cheatsheet'
-import { Guide } from '../classes/Guide'
+import { Guide, getContent } from '../classes/Guide'
 
 const types = ['cheatsheet', 'note', 'guide']
 
@@ -41,7 +41,7 @@ export default class Add extends Command {
             type = responses.type
         }
     }
-    let title, description, content;
+    let title = "", description = "", content = "";
     switch (type) {
         case "cheatsheet":
             if (args.title && args.description) {
@@ -69,15 +69,9 @@ export default class Add extends Command {
             } else {
                 let responses: any = await inquirer.prompt([
                     {name: 'title', message: 'Enter a title', type: 'input'},
-                    {
-                        name: 'guide',
-                        type: 'editor',
-                        message: 'Create a guide?',
-                        default: '# My Title \n---\n\nLorem ipsum'
-                    }
                 ])
                 title = responses.title
-                content = responses.guide
+                content = await getContent()
             }
             const guide = new Guide(title, content)
             guide.save()
