@@ -9,26 +9,37 @@ A simple note, cheatsheet taking cli with easy search
 [![License](https://img.shields.io/npm/l/dust-cli.svg)](https://github.com/crimson-med/dust-cli/blob/master/package.json)
 
 <!-- toc -->
+
 * [Usage](#usage)
 * [Commands](#commands)
-<!-- tocstop -->
-# Usage
-<!-- usage -->
-```sh-session
-$ yarn global add dust-cli
-$ dust init
-$ dust COMMAND
-running command...
-$ dust (-v|--version|version)
-dust-cli/0.0.0 darwin-x64 node-v12.9.1
-$ dust --help [COMMAND]
-USAGE
+* [Guides](doc/)
+  
+  
+  
+  <!-- tocstop -->
+  
+  # Usage
+  
+  <!-- usage -->
+  
+  ```sh-session
+  $ yarn global add dust-cli
+  $ dust init
   $ dust COMMAND
-...
-```
-<!-- usagestop -->
-# Commands
-<!-- commands -->
+  running command...
+  $ dust (-v|--version|version)
+  dust-cli/0.0.0 darwin-x64 node-v12.9.1
+  $ dust --help [COMMAND]
+  USAGE
+  $ dust COMMAND
+  ...
+  ```
+  
+  <!-- usagestop -->
+  
+  # Commands
+  
+  <!-- commands -->
 * [`dust init`](#dust-init)
 * [`dust search [TITLE]`](#dust-search-title)
 * [`dust add [TYPE] [TITLE] [DESCRIPTION]`](#dust-add-type-title-description)
@@ -50,8 +61,6 @@ EXAMPLE
 ```
 
 ## `dust search [TITLE]`
-
-
 
 ```
 USAGE
